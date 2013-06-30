@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.multipart.maxSize" value="209715200" />
+	<constant name="struts.action.extension" value="html,do,action" />
+
+    
+	<include file="struts-default.xml" />
+	<package name="default" extends="struts-default,json-default">
+	</package>
+
+	<package name="module" extends="default" namespace="/modulespace">
+		<action name="initIndex" class="moduleAction" method="initIndexPage">
+			<result name="moduleObj" type="json"></result>
+		</action>
+	</package>
+	<package name="part" extends="default" namespace="/partspace">
+		<action name="initSecondMenu" class="partAction" method="queryPartsByModuleCode">
+			<result name="partObj" type="json"></result>
+		</action>
+		<action name="queryInfosByPartCode" class="partAction" method="queryInfosByPartCode">
+			<result name="success">/infoList.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="infospace" extends="default" namespace="/infospace">
+	    <action name="*Info" class="infoAction" method="{1}">
+	      <result name="view">/manager_info/viewInfo.jsp</result>	        
+	      <result name="viewHtml" type="redirect">${forwardHtmlUrl}</result>	        
+	    </action>
+	</package>
+</struts>
