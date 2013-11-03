@@ -1,3 +1,3 @@
 IntpubWeb
 =========
-自动生成企业网站前台代码
+Antomattly generate company's website
